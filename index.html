@@ -20,17 +20,21 @@
           console.log('marker lost');
         });
 
-        // по клику увеличивается моделька и через полсекунды возвращает размер)
-        animatedMarker.addEventListener('click', function (ev, target) {
+  
+      },
+     
+    });
+
+    AFRAME.registerComponent('clickHandler', {
+      init: function () {
+        const model = this.el;
+
+          
+        model.addEventListener('click', function (ev, target) {
          alert('click');
         });
       },
-      events: {
-        click: function (event) {
-          console.log('This entity was clicked!');
-          alert('This entity was clicked!');
-        }
-      }
+     
     });
 
 
@@ -51,6 +55,7 @@
         gltf-model="#bowser"
         position="0 0 0"
         scale="0.05 0.05 0.05"
+        clickHandler
       >
       </a-marker>
       <a-entity camera> </a-entity>
