@@ -6,6 +6,40 @@
 
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script>
+    AFRAME.registerComponent('markerhandler', {
+  init: function () {
+    const animatedMarker = document.querySelector('#animated-marker');
+    const model = document.querySelector('#animated-model');
+
+    animatedMarker.addEventListener('markerFound', () => {
+      console.log('marker found');
+      if (isLost) setIsLost(false);
+    });
+    
+    animatedMarker.addEventListener('markerLost', () => {
+      console.log('marker lost');
+      if (!isLost) setIsLost(true);
+    });
+    
+
+    // по клику увеличивается моделька и через полсекунды возвращает размер)
+    animatedMarker.addEventListener('click', function (ev, target) {
+      if (model && event.target === model) {
+        const scale = model.getAttribute('scale');
+
+        Object.keys(scale).forEach((key) => (scale[key] = scale[key] + 0.5));
+        model.setAttribute('scale', scale);
+
+        setTimeout(() => {
+          Object.keys(scale).forEach((key) => (scale[key] = scale[key] - 0.5));
+          model.setAttribute('scale', scale);
+        }, 500);
+      }
+    });
+  },
+});
+  </script>
 
   <body style="margin: 0px; overflow: scroll">
     <a-scene arjs embedded id="scene">
@@ -16,9 +50,9 @@
         >
         </a-asset-item>
       </a-assets>
-      <a-marker preset="hiro">
+      <a-marker preset="hiro" id="animated-marker">
         <a-entity
-        id="bowser-model"
+        id="animated-model"
         gltf-model="#bowser"
         position="0 0 0"
         scale="0.05 0.05 0.05"
