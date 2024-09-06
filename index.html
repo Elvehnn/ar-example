@@ -24,6 +24,12 @@
         animatedMarker.addEventListener('click', function (ev, target) {
          alert('click');
         });
+      },
+      events: {
+        click: function (event) {
+          console.log('This entity was clicked!');
+          alert('This entity was clicked!');
+        }
       }
     });
 
