@@ -20,6 +20,11 @@
           console.log('marker lost');
         });
 
+        model.addEventListener('click', () => {
+         alert('click');
+         console.log('click');
+        });
+
   
       },
      
@@ -31,7 +36,8 @@
 
           
         model.addEventListener('click', function (ev, target) {
-         alert('click');
+         alert('model');
+         console.log('model');
         });
       },
      
