@@ -22,25 +22,16 @@
 
         // по клику увеличивается моделька и через полсекунды возвращает размер)
         animatedMarker.addEventListener('click', function (ev, target) {
-          console.log('click');
-            const model = document.querySelector('#animated-model');
-            const scale = model.getAttribute('scale');
-
-            Object.keys(scale).forEach((key) => (scale[key] = scale[key] + 0.5));
-            model.setAttribute('scale', scale);
-
-            setTimeout(() => {
-              Object.keys(scale).forEach((key) => (scale[key] = scale[key] - 0.5));
-              model.setAttribute('scale', scale);
-            }, 500);
-         
-    });
+         alert('click');
+        });
       }
     });
+
+
   </script>
 
   <body style="margin: 0px; overflow: scroll">
-    <a-scene arjs embedded id="scene">
+    <a-scene arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" embedded id="scene">
       <a-assets>
         <a-asset-item
           id="bowser"
@@ -48,14 +39,12 @@
         >
         </a-asset-item>
       </a-assets>
-      <a-marker preset="hiro" id="animated-marker" markerhandler>
+      <a-marker emitevents="true" cursor="rayOrigin: mouse" preset="hiro" id="animated-marker" markerhandler>
         <a-entity
         id="animated-model"
         gltf-model="#bowser"
         position="0 0 0"
         scale="0.05 0.05 0.05"
-        class="clickable"
-       
       >
       </a-marker>
       <a-entity camera> </a-entity>
