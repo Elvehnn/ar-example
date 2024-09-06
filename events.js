@@ -19,3 +19,13 @@ AFRAME.registerComponent('markerhandler', {
     });
   },
 });
+
+const marker = document.querySelector('a-marker');
+marker?.addEventListener('markerFound', () => {
+  console.log('marker found');
+  if (isLost) setIsLost(false);
+});
+marker?.addEventListener('markerLost', () => {
+  console.log('marker lost');
+  if (!isLost) setIsLost(true);
+});
