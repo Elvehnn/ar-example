@@ -3,6 +3,17 @@ AFRAME.registerComponent('markerhandler', {
     const animatedMarker = document.querySelector('#animated-marker');
     const model = document.querySelector('#animated-model');
 
+    animatedMarker.addEventListener('markerFound', () => {
+      console.log('marker found');
+      if (isLost) setIsLost(false);
+    });
+    
+    animatedMarker.addEventListener('markerLost', () => {
+      console.log('marker lost');
+      if (!isLost) setIsLost(true);
+    });
+    
+
     // по клику увеличивается моделька и через полсекунды возвращает размер)
     animatedMarker.addEventListener('click', function (ev, target) {
       if (model && event.target === model) {
@@ -21,11 +32,3 @@ AFRAME.registerComponent('markerhandler', {
 });
 
 const marker = document.querySelector('a-marker');
-marker?.addEventListener('markerFound', () => {
-  console.log('marker found');
-  if (isLost) setIsLost(false);
-});
-marker?.addEventListener('markerLost', () => {
-  console.log('marker lost');
-  if (!isLost) setIsLost(true);
-});
