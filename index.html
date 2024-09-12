@@ -2,52 +2,17 @@
 <html>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="stylesheet" type="text/css" href="/index.css" />
+  <link rel="stylesheet" type="text/css" href="index.css" />
 
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <script>
-    AFRAME.registerComponent('markerhandler', {
-      init: function () {
-        const animatedMarker = this.el;
-
-        animatedMarker.addEventListener('markerFound', () => {
-          console.log('marker found');
-          
-        });
-        
-        animatedMarker.addEventListener('markerLost', () => {
-          console.log('marker lost');
-        });
-
-        model.addEventListener('click', () => {
-         alert('click');
-         console.log('click');
-        });
-
+  <script src="gesture-detector.js"></script>
+  <script src="gesture-handler.js"></script>
   
-      },
-     
-    });
-
-    AFRAME.registerComponent('clickHandler', {
-      init: function () {
-        const model = this.el;
-
-          
-        model.addEventListener('click', function (ev, target) {
-         alert('model');
-         console.log('model');
-        });
-      },
-     
-    });
-
-
-  </script>
 
   <body style="margin: 0px; overflow: scroll">
-    <a-scene arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" embedded id="scene">
+    <a-scene arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" embedded  renderer="logarithmicDepthBuffer: true;"
+    vr-mode-ui="enabled: false" gesture-detector id="scene" >
       <a-assets>
         <a-asset-item
           id="bowser"
@@ -55,14 +20,16 @@
         >
         </a-asset-item>
       </a-assets>
-      <a-marker emitevents="true" cursor="rayOrigin: mouse" preset="hiro" id="animated-marker" markerhandler>
+      <a-marker preset="hiro" raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA" markerhandler>
         <a-entity
-        id="animated-model"
-        gltf-model="#bowser"
-        position="0 0 0"
-        scale="0.05 0.05 0.05"
-        clickHandler
-      >
+          id="bowser-model"
+          gltf-model="#bowser"
+          position="0 0 0"
+          scale="0.05 0.05 0.05"
+          class="clickable"
+          gesture-handler
+        >
+        </a-entity>
       </a-marker>
       <a-entity camera> </a-entity>
     </a-scene>
